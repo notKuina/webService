@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Services-implementing templates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            position: relative;
+            /* background-image:url(img/homepage.jpeg);
+            background-repeat: no-repeat;
+            background-size:cover;
+            background-position: center;
+            height:100vh;
+            width:100vw; */
+        }
+
+        .homepage {
+            width: 100%;
+            height: 100vh;
+            /* full screen */
+            position: relative;
+        }
+
+        .container {
+            z-index: 2;
+        }
+
+        header {
+            background-color: #FFFFFF00;
+            width: 100%;
+            height: auto;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+        }
+
+        nav {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            ;
+        }
+
+        .logo h1 {
+            font-size: larger;
+            font-weight: 400;
+            color: white;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+        }
+
+        nav ul {
+            width: 40%;
+            list-style-type: none;
+            display: inherit;
+            justify-content: space-evenly;
+            gap: 50px;
+            align-items: center;
+            color: white;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+        }
+
+        .searchbar {
+            width: 25%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* main content */
+        .content {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            position: relative;
+            top: 0;
+            /* z-index: -1; */
+
+        }
+
+        .content img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .searchbar input {
+            width: 200px;
+            height: 30px;
+            border: 0.3px solid black;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .searchbar i {
+            position: absolute;
+            left: 225px;
+        }
+
+        .moto {
+            color: white;
+            font-size: 40px;
+            font-weight: 900;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            position: absolute;
+            left: 400px;
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .arrow {
+            height: 25px;
+            width: 25px;
+            border-right: 1px solid white;
+            border-bottom: 1px solid white;
+            /* transform: rotate(45deg); */
+            position: absolute;
+            top: 400px;
+            left: 650px;
+            animation-name: scrollArrow;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+        }
+
+        @keyframes scrollArrow {
+            0% {
+                transform: translateX(-50%) rotate(45deg) translate(0, 0);
+            }
+
+            100% {
+                transform: translateX(-50%) rotate(45deg) translate(0, 20px);
+            }
+        }
+
+        .scroll-text {
+            height: 25px;
+            width: 25px;
+            color: white;
+            position: absolute;
+            top: 500px;
+            left: 650px;
+        }
+
+        .body {
+            padding: 0 4vw;
+            background-color: white;
+            margin: 0;
+        } 
+        .body h2{
+            text-align: center;
+            color:#463f68;
+            padding-top: 20px;
+        }
+
+        /* .arrow {
+  left: 50%;
+  top: 70%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 25px;
+  height: 25px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  animation: scrollArrow 2s infinite;
+} */
+
+
+        /* about section */
+        .about{
+            width: 100%;
+            height:auto
+        }
+        .about-container {
+            width: 100%;
+            height:auto;
+            padding: 80px 50px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            /* background-color: white; */
+            /* background-color: #f9f9f9; */
+            position: relative;
+            
+        }
+
+        .about-card {
+            flex: 1 1 300px;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .about-card:hover {
+            background-color: #f0f0f0;
+            /* Light gray background on hover */
+            transform: scale(1.05);
+            /* Slightly zoom in */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Add a shadow */
+            cursor: pointer;
+            /* Make the cursor a pointer */
+        }
+
+        .about-card h4 {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .about-card h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #2c2358;
+            text-align: center;
+        }
+
+        .about-card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* image grid */
+        .images {
+            width: 100%;
+            padding: 50px 0;
+            background: #fff;
+            
+        }
+        .images h2{
+            bottom: 20px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 300px;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .description {
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .description p:hover{
+            color:#f54ea2;
+        }
+ /* Services Section */
+        .services {
+            padding: 60px 20px;
+            background: #fff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+
+        }
+
+        .service-item {
+            text-align: center;
+            padding: 20px;
+            flex: 1 1 300px;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            background-color: #f0f0f0;
+            /* Light gray background on hover */
+            transform: scale(1.05);
+            /* Slightly zoom in */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Add a shadow */
+            cursor: pointer;
+            /* Make the cursor a pointer */
+        }
+
+        .service-item i {
+            font-size: 32px;
+            color: #f54ea2;
+            margin-bottom: 10px;
+        }
+
+        .service-item h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2c2358;
+        }
+
+        .service-item p {
+            font-size: 14px;
+            color: #666;
+        }
+
+
+        /* footer */
+
+        .footer {
+            background-color: #262338;
+            color: #ffffff;
+            padding: 60px 0 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 40px;
+            padding: 0 20px;
+        }
+
+        .footer-brand h2 {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: #b9b9c3;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: a20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #666;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background-color: #555;
+        }
+
+        .footer-links h3 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: #b9b9c3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .instagram-posts h3 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+
+        .post {
+            margin-bottom: 30px;
+        }
+
+        .post h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .post p {
+            color: #b9b9c3;
+            line-height: 1.5;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b9b9c3;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 20px 20px 0;
+        }
+
+        .copyright a {
+            color: #ff4b6e;
+            text-decoration: none;
+        }
+
+        /* reponsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                /* background: rgba(0, 0, 0, 0.7); */
+                /* optional for better mobile visibility */
+            }
+
+            .searchbar {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .logo {
+                width: 100%;
+            }
+
+            .moto {
+                font-size: 24px;
+                left: 50%;
+                top: 150px;
+                transform: translateX(-50%);
+                text-align: center;
+            }
+
+            .arrow {
+                left: 50%;
+                top: 350px;
+            }
+
+            .scroll-text {
+                left: 50%;
+                top: 380px;
+                transform: translateX(-50%);
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about {
+                padding: 40px 20px;
+            }
+
+            .about-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <h1>Web Service</h1>
+                </div>
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Services</li>
+                    <li>Pages
+                        <i class="fa-solid fa-angle-down" style="color: #ffffff;"></i>
+                    </li>
+                    <li>Contact</li>
+                </ul>
+                <form class="searchbar" method="post" action="">
+                    <input type="text" placeholder="Search here..." name="search" id="search">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #c9cbcf;"></i>
+                </form>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="content">
+            <img src="img/Data Protection Landing Page.jpeg" alt="">
+        </div>
+        <div class="moto">Our service, your satisfaction</div>
+        <!-- <p class="moto">Our service, your satisfaction</p> -->
+
+        <div class="arrow"></div>
+        <p class="scroll-text">Scroll</p>
+
+    </main>
+    <div class="body">
+        <section class="about">
+            <h2>About Us</h2>
+            <div class="about-container">
+            <div class="about-card">
+                <h4>01. VIDEO PRODUCTIONS</h4>
+                <h2>Stunning video sequence and impressing ideas are all here.</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aperiam quia perspiciatis est sed?
+                    In,
+                    nesciunt repudiandae totam ipsam nemo placeat fuga, omnis dolorum ullam quibusdam iure consequuntur
+                    tempore sed?</p>
+            </div>
+            <div class="about-card">
+                <h4>02. BRANDING DESIGN</h4>
+                <h2>Great reflection of your brand be achieved by top designers.</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aperiam quia perspiciatis est sed?
+                    In,
+                    nesciunt repudiandae totam ipsam nemo placeat fuga, omnis dolorum ullam quibusdam iure consequuntur
+                    tempore sed?</p>
+            </div>
+            <div class="about-card">
+                <h4>03. GRAPHIC DESIGN</h4>
+                <h2>Creating gorgeous graphic design meeting clients needs.</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aperiam quia perspiciatis est sed?
+                    In,
+                    nesciunt repudiandae totam ipsam nemo placeat fuga, omnis dolorum ullam quibusdam iure consequuntur
+                    tempore sed?</p>
+            </div>
+        </div>
+        </section>
+
+        <section class="images">
+            <h2>Services</h2>
+            <div class="image-grid">
+                <div class="image-item">
+                    <img src="img/ux design aesthetic.jpg" alt="">
+                    <div class="overlay">
+                        <div class="description">
+                           <p style="font-size: 24px;">UI Experience</p> <br>
+                            Lorem ipsum dolor sit amet
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="img/wordpress.jpg      " alt="">
+                    <div class="overlay">
+                        <div class="description">
+                            <p style="font-size: 24px;">wordpress</p>
+                            Lorem ipsum dolor sit amet
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="img/ecommerce.jpg " alt="">
+                    <div class="overlay">
+                        <div class="description">
+                            <p style="font-size: 24px;">Ecommerce</p> <br>
+                            Lorem ipsum dolor sit amet
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="img/headphones.jpg" alt="">
+                    <div class="overlay">
+                        <div class="description">
+                            <p style="font-size: 24px;">Headphones</p> <br>
+                            Lorem ipsum dolor sit amet
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="img/mobileapps.jpg" alt="">
+                    <div class="overlay">
+                        <div class="description">
+                            <p style="font-size: 24px;">MobileApps</p> <br>
+                            Lorem ipsum dolor sit amet</div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="img/ideas.jpg" alt="">
+                    <div class="overlay">
+                        <div class="description">
+                            <p style="font-size: 24px;">Ideas</p> <br>
+                            Lorem ipsum dolor sit amet
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="img/creativity.jpg" alt="">
+                    <div class="overlay">
+                        <div class="description">
+                            <p style="font-size: 24px;">Creativity</p> <br>
+                            Lorem ipsum dolor sit amet
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="img/fashion design.jpg" alt="">
+                    <div class="overlay">
+                        <div class="description">
+                            <p style="font-size: 24px;">Fashion Design</p> <br>
+                            Lorem ipsum dolor sit amet
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="services">
+            <div class="services-grid">
+                <div class="service-item">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <h4>Social Media Strategy</h4>
+                    <p>Vivamus a ligula quam tesque et libero justo, ultrices in. Ut eu leo non. Duis sed et dolor sit
+                        amet.
+                    </p>
+                </div>
+                <div class="service-item">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <h4>Branding Strategy</h4>
+                    <p>Vivamus a ligula quam tesque et libero justo, ultrices in. Ut eu leo non. Duis sed et dolor sit
+                        amet.
+                    </p>
+                </div>
+                <div class="service-item">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <h4>UI/UX Design</h4>
+                    <p>Vivamus a ligula quam tesque et libero justo, ultrices in. Ut eu leo non. Duis sed et dolor sit
+                        amet.
+                    </p>
+                </div>
+                <div class="service-item">
+                    <i class="fa-solid fa-gift"></i>
+                    <h4>Digital Product Strategy</h4>
+                    <p>Vivamus a ligula quam tesque et libero justo, ultrices in. Ut eu leo non. Duis sed et dolor sit
+                        amet.
+                    </p>
+                </div>
+                <div class="service-item">
+                    <i class="fa-solid fa-server"></i>
+                    <h4>Web Hosting Service</h4>
+                    <p>Vivamus a ligula quam tesque et libero justo, ultrices in. Ut eu leo non. Duis sed et dolor sit
+                        amet.
+                    </p>
+                </div>
+                <div class="service-item">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    <h4>SEO Services</h4>
+                    <p>Vivamus a ligula quam tesque et libero justo, ultrices in. Ut eu leo non. Duis sed et dolor sit
+                        amet.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2>Web Service</h2>
+                <p>We are real pros at digital and web design. We work for our clients to provide them with the best
+                    service and products. We value every project as we get invaluable experience.</p>
+                <div class="social-links">
+                    <a href="" class="social-icon">
+                        <i class="fa-brands fa-facebook-f" style="color: #fafcff;"></i></a>
+                    <a href="" class="social-icon">
+                        <i class="fa-brands fa-x-twitter" style="color: #fafcff;"></i></a>
+                    <a href="" class="social-icon">
+                        <i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
+                    <a href="" class="social-icon">
+                        <i class="fa-brands fa-linkedin-in" style="color: #f8f9fc;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog posts</a></li>
+                    <li><a href="#">Pricing plans</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Training</a></li>
+                    <li><a href="#">Marketplace</a></li>
+                    <li><a href="#">Our Experts</a></li>
+                    <li><a href="#">Platform</a></li>
+                    <li><a href="#">Customers</a></li>
+                </ul>
+            </div>
+
+            <div class="instagram-posts">
+                <h3>Instagram posts</h3>
+                <div class="post">
+                    <h4>Practice Safe Design. Always Use...</h4>
+                    <p>We work for our clients to provide them with the best service</p>
+                </div>
+                <div class="post">
+                    <h4>How to Start when You...</h4>
+                    <p>We work for our clients to provide them with the best service</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
